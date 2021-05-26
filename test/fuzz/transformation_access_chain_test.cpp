@@ -132,8 +132,10 @@ TEST(TransformationAccessChainTest, BasicTest) {
       101, 28, {29}, MakeInstructionDescriptor(42, SpvOpReturn, 0));
 
   // Since the index  is not a 32-bit integer type but a 32-bit float type,
-  // ValidIndexComposite should return false and thus the transformation is not applicable.
-  ASSERT_FALSE(invalid_index_example1.IsApplicable(context.get(), transformation_context));
+  // ValidIndexComposite should return false and thus the transformation is not
+  // applicable.
+  ASSERT_FALSE(invalid_index_example1.IsApplicable(context.get(),
+                                                   transformation_context));
 
   // Bad: id is not fresh
   ASSERT_FALSE(TransformationAccessChain(
@@ -259,8 +261,6 @@ TEST(TransformationAccessChainTest, BasicTest) {
         context.get(), validator_options, kConsoleMessageConsumer));
     ASSERT_FALSE(
         transformation_context.GetFactManager()->PointeeValueIsIrrelevant(103));
-
-
   }
 
   {
@@ -594,7 +594,6 @@ TEST(TransformationAccessChainTest, ClampingVariables) {
                                                kConsoleMessageConsumer));
   TransformationContext transformation_context(
       MakeUnique<FactManager>(context.get()), validator_options);
-
   // Bad: no ids given for clamping
   ASSERT_FALSE(TransformationAccessChain(
                    100, 29, {17}, MakeInstructionDescriptor(36, SpvOpLoad, 0))
